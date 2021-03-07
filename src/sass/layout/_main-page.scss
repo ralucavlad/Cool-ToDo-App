@@ -1,0 +1,50 @@
+.main-page {
+  height: 90vh;
+  max-width: 100%;
+  padding: 5px 0 0 0;
+
+  .title {
+    height: 60vh;
+    @include pictureBackground($image-primary);
+    background-position: center;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+    position: relative;
+
+    &--centering {
+      width: 100%;
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      backface-visibility: hidden;
+    }
+  }
+
+  .about {
+    height: 30vh;
+    .col {
+      text-align: center;
+      transition: all 0.3s;
+
+      &:hover {
+        transform: scale(1.04) translateY(-0.3rem);
+      }
+    }
+
+    &__icon {
+      font-size: 6rem;
+      margin-bottom: 0.5rem;
+      color: $color-black;
+
+      @include responsive(tab-land) {
+        font-size: 4.5rem;
+      }
+      @include responsive(tab-port) {
+        font-size: 4rem;
+        font-weight: 400;
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+h1 {
+  color: $color-primary;
+  font-size: 7rem;
+  letter-spacing: 2rem;
+  font-weight: 300;
+  animation: moveInFromLeft 2s;
+
+  @include responsive(tab-land) {
+    letter-spacing: 1rem;
+    font-size: 6rem;
+  }
+  @include responsive(tab-port) {
+    letter-spacing: 0.5rem;
+    font-size: 4rem;
+    font-weight: 400;
+  }
+}
+
+h5 {
+  font-size: 1.7rem;
+  color: $color-primary;
+  text-align: center;
+}
+
+.about {
+  &__paragraph {
+    text-transform: uppercase;
+
+    font-size: 2.5rem;
+
+    @include responsive(tab-land) {
+      font-size: 2rem;
+    }
+    @include responsive(tab-port) {
+      font-size: 1.5rem;
+    }
+    @include responsive(phone) {
+      font-size: 1.3rem;
+      font-weight: 400;
+    }
+  }
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+.v-btn__content {
+  font-size: 2rem;
+}
+
+.v-list .v-list-item__content .v-list-item__title {
+  font-size: 1.5rem;
+}
+
+.header-todo {
+  h3 {
+    margin-left: 1rem;
+    font-size: 2rem;
+
+    @include responsive(phone) {
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+  }
+}

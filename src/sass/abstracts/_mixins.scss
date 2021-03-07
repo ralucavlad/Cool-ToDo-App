@@ -1,0 +1,84 @@
+@mixin pictureBackground($image-background) {
+  background-image: linear-gradient(
+      to right bottom,
+      rgba($color-grey-light-1, 0.8),
+      rgba($color-grey-light-2, 0.8)
+    ),
+    url($image-background);
+  background-size: cover;
+}
+
+@mixin forms($width) {
+  height: 90vh;
+  max-width: 100%;
+  @include pictureBackground($image-secondary);
+  background-position: center;
+  position: relative;
+
+  @include responsive(tab-port) {
+    background-image: none;
+  }
+  &__form {
+    max-width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $color-white;
+    width: $width;
+    border: 1px solid $color-black;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 0.8rem rgba($color-black, 0.8);
+
+    @include responsive(tab-port) {
+      top: 1rem;
+      transform: translateX(-50%);
+    }
+  }
+  h3 {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    @include responsive(tab-port) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__form .row .col .btn--dark {
+    background-color: $color-grey-light-3;
+  }
+}
+// Media query
+
+/*
+$media-breakpoint can be
+phone: 0 - 600px
+tab-port: 600 - 900px
+tab-land: 900 - 1200px
+big-desktop: 1800+px
+
+1em = 16px
+*/
+@mixin responsive($media-breakpoint) {
+  @if $media-breakpoint == phone {
+    @media (max-width: 37.5em) {
+      @content;
+    }
+  }
+  @if $media-breakpoint == tab-port {
+    @media (max-width: 56.25em) {
+      @content;
+    }
+  }
+  @if $media-breakpoint == tab-land {
+    @media (max-width: 75em) {
+      @content;
+    }
+  }
+  @if $media-breakpoint == big-desktop {
+    @media (min-width: 112.5em) {
+      @content;
+    }
+  }
+}

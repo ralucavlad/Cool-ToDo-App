@@ -1,0 +1,15 @@
+.register {
+  @include forms(70rem);
+
+  .sign-btn {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+  @include responsive(phone) {
+    .v-btn__content {
+      font-size: 1.6rem;
+    }
+  }
+}

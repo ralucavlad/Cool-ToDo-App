@@ -1,0 +1,16 @@
+.sign-in {
+  @include forms(45rem);
+
+  .col {
+    text-align: center;
+  }
+
+  &__social-account {
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  a {
+    font-size: 0.8rem;
+  }
+}

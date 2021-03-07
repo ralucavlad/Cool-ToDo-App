@@ -1,0 +1,13 @@
+.to-do-card {
+  max-width: 80rem;
+  font-size: 1.6rem;
+
+  &:hover {
+    cursor: pointer;
+    border: 1px solid $color-grey-light-3;
+  }
+
+  @include responsive(tab-port) {
+    font-size: 1.5rem;
+  }
+}

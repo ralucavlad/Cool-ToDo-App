@@ -1,0 +1,49 @@
+.to-do-directory {
+  height: 90vh;
+  max-width: 100%;
+
+  .header-todo {
+    display: inline-block;
+    margin: 2rem 1rem;
+    text-align: center;
+
+    @include responsive(phone) {
+      margin-left: 0;
+    }
+
+    &__icon {
+      display: inline-flex;
+      font-size: 2.7rem;
+      color: $color-black;
+
+      // @include responsive(phone) {
+      //   font-size: 2rem;
+      // }
+    }
+  }
+
+  .v-tab {
+    font-size: 2rem;
+    @include responsive(tab-port) {
+      font-size: 1.7rem;
+    }
+  }
+
+  .v-toolbar.v-tab--active {
+    color: $color-primary;
+  }
+
+  @include responsive(phone) {
+    #header__tabs .v-tab {
+      margin-left: 0;
+    }
+    #header__tabs .v-tabs-slider-wrapper {
+      left: 0;
+    }
+  }
+
+  .v-slide-group__prev {
+    min-width: 0;
+    width: 0;
+  }
+}
