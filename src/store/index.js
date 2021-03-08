@@ -1,5 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 Vue.use(Vuex);
 
@@ -14,6 +16,7 @@ export default new Vuex.Store({
       autoLoggedOut: null,
       taskOpened: null,
       avatarLabel: null,
+      googleLogin: null,
     };
   },
   mutations: {
@@ -34,6 +37,10 @@ export default new Vuex.Store({
     setAvatarLabel(state, payload) {
       state.avatarLabel = payload;
       localStorage.setItem("avatarLabel", payload);
+    },
+    setGoogleLogin(state, payload) {
+      state.googleLogin = payload;
+      localStorage.setItem("googleLogin", payload);
     },
   },
   actions: {
@@ -129,12 +136,66 @@ export default new Vuex.Store({
         });
       }
     },
+    loginGoogle(context) {
+      const config = {
+        apiKey: "AIzaSyDreeyGJwE6UajgYbcUpVZlAoFNOcSWlYw",
+        authDomain: "my-cool-todo-ac29b.firebaseapp.com",
+        databaseURL:
+          "https://my-cool-todo-ac29b-default-rtdb.europe-west1.firebasedatabase.app",
+        storageBucket: "my-cool-todo-ac29b.appspot.com",
+      };
+
+      if (!firebase.apps.length) {
+        firebase.initializeApp(config);
+      } else {
+        firebase.app();
+      }
+
+      firebase
+        .auth()
+        .getRedirectResult()
+        .then((result) => {
+          const credential = result.credential;
+          const token = credential.accessToken;
+          const userEmail = result.user.email;
+          const userId = result.user.uid;
+          const passData = [userEmail, userId, token];
+          return passData;
+        })
+        .then((user) => {
+          const expirationDate = new Date().getTime() + 3600 * 1000;
+          localStorage.setItem("tokenExpiration", expirationDate);
+
+          timer = setTimeout(function() {
+            context.dispatch("autoLogout");
+          }, 3600 * 1000);
+
+          localStorage.setItem("userId", user[1]);
+          localStorage.setItem("token", user[2]);
+          context.commit("setUser", {
+            token: user[2],
+            userId: user[1],
+          });
+          context.commit("setAvatarLabel", user[0].substring(0, 2));
+          return true;
+        })
+        .then(() => {
+          context.commit("setGoogleLogin", false);
+        })
+        .catch((error) => {
+          const thrError = new Error(
+            error.message || "Failed to authenticate."
+          );
+          throw thrError;
+        });
+    },
     logout(context) {
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
       localStorage.removeItem("tokenExpiration");
       localStorage.removeItem("remember");
       localStorage.removeItem("avatarLabel");
+      localStorage.removeItem("googleLogin");
 
       clearTimeout(timer);
 
@@ -172,6 +233,12 @@ export default new Vuex.Store({
         state.avatarLabel = localStorage.getItem("avatarLabel");
       }
       return state.avatarLabel;
+    },
+    getGoogleLogin(state) {
+      if (localStorage.getItem("googleLogin")) {
+        state.googleLogin = localStorage.getItem("googleLogin");
+      }
+      return state.googleLogin;
     },
   },
 });

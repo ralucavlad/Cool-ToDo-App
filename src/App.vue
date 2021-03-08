@@ -19,6 +19,9 @@ export default {
     autoLoggedOut() {
       return this.$store.getters.autoLoggedOut;
     },
+    getGoogleLoginStatus() {
+      return this.$store.getters.getGoogleLogin;
+    },
   },
   watch: {
     autoLoggedOut(currentValue, oldValue) {
@@ -26,9 +29,19 @@ export default {
         this.$router.replace("/home");
       }
     },
+    getGoogleLoginStatus(currentValue, oldValue) {
+      if (currentValue && currentValue != oldValue) {
+        this.$router.replace("/to-do-directory");
+      }
+    },
   },
   created() {
     this.$store.dispatch("autoLogin");
+  },
+  mounted() {
+    if (this.$store.getters.getGoogleLogin) {
+      this.$store.dispatch("loginGoogle");
+    }
   },
 };
 </script>

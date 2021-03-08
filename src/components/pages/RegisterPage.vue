@@ -110,6 +110,7 @@ export default {
       password_confirmation_Err: "",
       error: null,
       database: null,
+      twoLettersEmail: "",
     };
   },
   methods: {
@@ -123,7 +124,9 @@ export default {
         if (this.password1 !== this.password2) {
           this.password_confirmation_Err = "Passwords do not match";
         } else {
+          this.twoLettersEmail = this.email.substring(0, 2);
           try {
+            await this.$store.commit("setAvatarLabel", this.twoLettersEmail);
             await this.$store.dispatch("register", {
               email: this.email,
               password: this.password1,
@@ -136,6 +139,7 @@ export default {
               this.website,
               this.phone
             );
+
             this.$router.push("/to-do-directory");
           } catch (err) {
             this.error =

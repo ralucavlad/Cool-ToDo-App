@@ -19,6 +19,10 @@
     @include responsive(phone) {
       max-height: 1.3rem;
     }
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .row {
@@ -38,6 +42,11 @@
     top: 50%;
     transform: translateY(-50%);
     right: 1rem;
+  }
+
+  &__avatar {
+    float: right;
+    margin-left: 1rem;
   }
 }
 

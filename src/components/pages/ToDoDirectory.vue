@@ -82,14 +82,16 @@ export default {
         .ref("/users/" + this.$store.getters.userId)
         .once("value")
         .then((snapshot) => {
-          const todoObj = snapshot.val().todos;
-          for (const property in todoObj) {
-            this.toDoTasks.push({
-              toDoTitle: todoObj[property].title,
-              toDoStatus: todoObj[property].status,
-              toDoDueDate: todoObj[property].date,
-              todoId: property,
-            });
+          if (snapshot.val()) {
+            const todoObj = snapshot.val().todos;
+            for (const property in todoObj) {
+              this.toDoTasks.push({
+                toDoTitle: todoObj[property].title,
+                toDoStatus: todoObj[property].status,
+                toDoDueDate: todoObj[property].date,
+                todoId: property,
+              });
+            }
           }
         });
     },

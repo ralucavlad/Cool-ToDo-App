@@ -35,9 +35,9 @@
       ></v-checkbox>
 
       <!-- Social account -->
-      <!-- <div class="sign-in__social-account">
-        <a href="#">Login using social account</a>
-      </div> -->
+      <div class="sign-in__social-account">
+        <a href="#" @click="googleAuth">Login using Google</a>
+      </div>
 
       <!-- Buttons -->
       <v-row>
@@ -54,10 +54,13 @@
 
 <script>
 import rulesMixin from "../mixins/rules-mixin";
+import firebase from "firebase/app";
+import "firebase/auth";
+import firebaseConfig from "../mixins/firebase-config";
 
 export default {
   name: "SignIn",
-  mixins: [rulesMixin],
+  mixins: [rulesMixin, firebaseConfig],
   data() {
     return {
       email: "",
@@ -77,19 +80,32 @@ export default {
       if (this.$refs.form.validate()) {
         this.twoLettersEmail = this.email.substring(0, 2);
         try {
+          await this.$store.commit("setAvatarLabel", this.twoLettersEmail);
           await this.$store.dispatch("login", {
             email: this.email,
             password: this.password,
             remember: this.remember,
           });
 
-          this.$store.commit("setAvatarLabel", this.twoLettersEmail);
           this.$router.replace("/to-do-directory");
         } catch (err) {
           this.error = err.message || "Failed to login, try again later";
         }
       }
     },
+    async googleAuth() {
+      this.$store.commit("setGoogleLogin", true);
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithRedirect(provider);
+    },
+  },
+  mounted() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("tokenExpiration");
+    localStorage.removeItem("remember");
+    localStorage.removeItem("avatarLabel");
+    localStorage.removeItem("googleLogin");
   },
 };
 </script>

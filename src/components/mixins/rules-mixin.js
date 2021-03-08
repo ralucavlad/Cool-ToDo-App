@@ -6,7 +6,7 @@ export default {
           return value === 1 || "Required";
         },
         stringRule: (value) => {
-          const pattern = typeof value === "string";
+          const pattern = typeof value === "string" && value.length >= 1;
           return pattern || "Should be a string";
         },
         userRule: (value) => {
