@@ -3,8 +3,8 @@ https://my-cool-todo-ac29b.web.app
 
 ## About
 This is an app for creating and managing a task list.  
-You must register first, to be able to create tasks.  
-After registration, you can return to you task list by loggin in with email and password.  
+You must register first, or login with a Google account, to be able to create tasks.  
+After registration, you can return to you task list by loggin in with email and password, or Google account.  
 Tasks can be created, edited or deleted.  
 
 ## Technologies
