@@ -2,7 +2,7 @@
   <v-container fluid class="global-header">
     <v-row align="center">
       <v-col class="global-header__col">
-        <img src="../../img/oracle_logo.png" alt="Logo" @click="goToHome" />
+        <img src="../../img/logo.jpg" alt="Logo" @click="goToHome" />
       </v-col>
 
       <v-col class="global-header__col right-align" align="center">
